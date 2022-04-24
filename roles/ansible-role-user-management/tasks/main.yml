@@ -1,0 +1,19 @@
+---
+
+- name: create wheel group 
+  group: name=wheel state=present
+  when: user_sudo 
+
+- name: wheel sudoers
+  template: src=wheel-nopasswd dest=/etc/sudoers.d/wheel-nopasswd owner=root group=root mode=0440
+  when: user_sudo
+
+- name: add {{ name }} 
+  user: name={{ name }} shell={{ shell }} state=present groups={{ 'wheel' if user_sudo else '' }} append=yes
+  
+- name: set password for {{ name }}
+  user: name={{ name }} password='ibyzqcl<ElzDq13jbutt'
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: add ssh key to user
+  authorized_key: user={{ name }} key={{ ssh_public_key }}

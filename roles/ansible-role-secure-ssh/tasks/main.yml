@@ -1,0 +1,13 @@
+---
+
+- name: disable root ssh
+  lineinfile: path={{ ssh_path }}/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin no'
+
+- name: disable pass auth 
+  lineinfile: path={{ ssh_path }}/sshd_config regexp='^PasswordAuthentication' line='PasswordAuthentication no'
+
+- name: disable key interactive 
+  lineinfile: path={{ ssh_path }}/sshd_config regexp='^ChallengeResponseAuthentication' line='ChallengeResponseAuthentication no'
+
+- name: restart ssh
+  service: name=sshd state=restarted
