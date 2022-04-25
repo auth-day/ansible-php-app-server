@@ -2,13 +2,11 @@
 - hosts: all
   become: yes
   roles:
-     - ansible-role-amqp
-     - name: geerlingguy.repo-remi
-       when: ansible_os_family == 'RedHat'
-     - geerlingguy.php-versions
-     - geerlingguy.php
-     - ansible-role-secure-ssh
-     - { role: ansible-role-user-management, ssh_path: '/etc/ssh/', user_name: 'alex', ssh_public_key: '', user_sudo=True }
-     - { role: ansible-role-user-management, ssh_path: '/etc/ssh/', user_name: 'denys', ssh_public_key: '', user_sudo=True }
-     - ansible-role-nginx
-     - ansible-role-php-fpm
+     - { role: ansible-role-amqp, tags: ["amqp"] }
+     - { role: geerlingguy.php-versions, tags: ["php"] }
+     - { role: geerlingguy.php, tags: ["php"] }
+     - { role: ansible-role-secure-ssh, tags: ["ssh"] }
+     - { role: ansible-role-user-management, ssh_path: '/etc/ssh/', user_name: 'alex', ssh_public_key: '', user_sudo=True, tags: ["user"] }
+     - { role: ansible-role-user-management, ssh_path: '/etc/ssh/', user_name: 'denys', ssh_public_key: '', user_sudo=True, tags: ["user"] }
+     - { role: ansible-role-nginx, tags: ["nginx"] }
+     - { role: ansible-role-php-fpm, tags: ["fpm"] }
