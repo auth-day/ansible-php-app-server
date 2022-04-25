@@ -3,19 +3,19 @@
 
 - name: Download amqp
   get_url:
-    url: {{ ampq_link }}
-    dest: {{ ampq_dest_tar }}
+    url: "{{ ampq_link }}"
+    dest: "{{ ampq_dest_tar }}"
     mode: '777'
 
-- name: Extract amqp-{{ ampq_version }}.tgz
+- name: "Extract amqp-{{ ampq_version }}.tgz"
   unarchive:
-    src: {{ ampq_dest_tar }}/amqp-{{ ampq_version }}.tgz
-    dest: {{ ampq_dest_tar }}
+    src: "{{ ampq_dest_tar }}/amqp-{{ ampq_version }}.tgz"
+    dest: "{{ ampq_dest_tar }}"
     
-- name: Build amqp-{{ ampq_version }}
+- name: "Build amqp-{{ ampq_version }}"
   shell: 
     cmd:  phpize && ./configure --with-amqp && make && make install
-    chdir: {{ ampq_dest_tar }}/amqp-{{ ampq_version }}
+    chdir: "{{ ampq_dest_tar }}/amqp-{{ ampq_version }}"
 
 - lineinfile:
     path: /etc/php/7.4/cli/php.ini
