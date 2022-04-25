@@ -8,12 +8,27 @@
   template: src=wheel-nopasswd dest=/etc/sudoers.d/wheel-nopasswd owner=root group=root mode=0440
   when: user_sudo
 
-- name: add {{ name }} 
-  user: name={{ name }} shell={{ shell }} state=present groups={{ 'wheel' if user_sudo else '' }} append=yes
+- name: add {{ item.name }} 
+  user: name={{ item.name }} shell={{ item.shell }} state=present groups={{ 'wheel' if user_sudo else '' }} append=yes
+  with_items:
+    - "{{ users_with_items }}"
   
-- name: set password for {{ name }}
-  user: name={{ name }} password='ibyzqcl<ElzDq13jbutt'
+- name: set password for {{ item.name }}
+  user: name={{ item.name }} password={{ item.password }}
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  with_items: 
+    - "{{ users_with_items }}"
 
 - name: add ssh key to user
-  authorized_key: user={{ name }} key={{ ssh_public_key }}
+  authorized_key: user={{ item.name }} key={{ item.ssh_public_key }}
+  with_items:
+    - "{{ users_with_items }}"
+
+- name: allow only to {{ item.0.name }}
+  lineinfile: path={{ ssh_path }}/sshd_config line='AllowUsers {{ item.0.name  }}@{{ item.1 }}'
+  with_subelements:
+    - "{{ users_with_items }}"
+    - src_ip
+
+- name: restart ssh
+  service: name=sshd state=restarted

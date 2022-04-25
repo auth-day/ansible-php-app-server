@@ -1,0 +1,23 @@
+- name: Install deps
+  apt: name=librabbitmq-dev state=latest
+
+- name: Download amqp
+  get_url:
+    url: http://pecl.php.net/get/amqp
+    dest: /tmp/
+    mode: '777'
+
+- name: Extract amqp-1.11.0.tgz
+  unarchive:
+    src: /tmp/amqp-1.11.0.tgz
+    dest: /tmp
+    
+- name: Build amqp-1.11.0
+  shell: 
+    cmd:  phpize && ./configure --with-amqp && make && make install
+    chdir: /tmp/amqp-1.11.0
+
+- lineinfile:
+    path: /etc/php/7.4/cli/php.ini
+    insertbefore: BOF
+    line: extension=amqp.so

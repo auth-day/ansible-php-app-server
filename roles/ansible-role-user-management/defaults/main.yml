@@ -1,2 +1,18 @@
 user_sudo: yes
-shell: /bin/bash
+ssh_path: /etc/ssh/
+
+users_with_items:
+  - name: "alex"
+    shell: /bin/bash
+    password: qwerewqwer
+    ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+9q2cvt/+MXlQ1SHbv5PiBdr212brHoM33oQnWvWXBIhqxVjc+CWJs1FpruYcRiI5rfP2cG791Ev9H18KaOfQ50hAQoDkZ5z6aiht4UAP/DpoC4wKUPrKs+RebRKOacdDN3S2Jj379eco9BfIcaC/RxMFHi5Q3M9EJu78ZBBiw90AwyBUkW45YHV8oZJxKbWY0wo1HIJ2x039g0y10Yihd4RlYAMjtqWLBtajVjYIwS8x1opPht/GR4Qm9KQ38ge7tfcUtRlxfHL5s/ugK4X0I9J7DxlCscq6XFBeMKwiW7fX5QwiI7fgAUYHPtCixhrxw5q17CeJ7XP5rWRpulWn dbogatyr@hft-task"
+    src_ip:
+      - "127.0.0.1"
+      - "127.0.0.2"
+  - name: "denys"
+    shell: /bin/bash
+    password: qwerewqwer
+    ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+9q2cvt/+MXlQ1SHbv5PiBdr212brHoM33oQnWvWXBIhqxVjc+CWJs1FpruYcRiI5rfP2cG791Ev9H18KaOfQ50hAQoDkZ5z6aiht4UAP/DpoC4wKUPrKs+RebRKOacdDN3S2Jj379eco9BfIcaC/RxMFHi5Q3M9EJu78ZBBiw90AwyBUkW45YHV8oZJxKbWY0wo1HIJ2x039g0y10Yihd4RlYAMjtqWLBtajVjYIwS8x1opPht/GR4Qm9KQ38ge7tfcUtRlxfHL5s/ugK4X0I9J7DxlCscq6XFBeMKwiW7fX5QwiI7fgAUYHPtCixhrxw5q17CeJ7XP5rWRpulWn dbogatyr@hft-task"
+    src_ip:
+      - "127.0.0.3"
+      - "127.0.0.4"

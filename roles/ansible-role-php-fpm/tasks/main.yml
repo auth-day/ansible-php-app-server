@@ -1,0 +1,35 @@
+---
+#- name: Install PHP-FPM 
+#  apt: name=php-fpm update_cache=yes state=latest
+
+- name: comment out php-fpm props upload_max_filesize
+  lineinfile:
+    path: /etc/php/7.4/fpm/php.ini
+    regexp: '(^upload_max_filesize.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+
+- name:  Add new updated upload_max_filesize 20
+  lineinfile:
+    path: /etc/php/7.4/fpm/php.ini
+    insertbefore: '# upload_max_filesize .*'
+    line: "upload_max_filesize 20"
+    state: present
+
+- name: comment out php-fpm props post_max_size
+  lineinfile:
+    path: /etc/php/7.4/fpm/php.ini
+    regexp: '(^post_max_size.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+
+- name:  Add new updated post_max_size 20
+  lineinfile:
+    path: /etc/php/7.4/fpm/php.ini
+    insertbefore: '# post_max_size.*'
+    line: "post_max_size 20"
+    state: present
+
+
