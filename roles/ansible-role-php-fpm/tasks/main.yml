@@ -1,6 +1,6 @@
 ---
-#- name: Install PHP-FPM 
-#  apt: name=php-fpm update_cache=yes state=latest
+- name: Install PHP-FPM 
+  apt: name=php-fpm update_cache=yes state=latest
 
 - name: comment out php-fpm props upload_max_filesize
   lineinfile:

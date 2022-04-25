@@ -3,19 +3,19 @@
 
 - name: Download amqp
   get_url:
-    url: http://pecl.php.net/get/amqp
-    dest: /tmp/
+    url: {{ ampq_link }}
+    dest: {{ ampq_dest_tar }}
     mode: '777'
 
-- name: Extract amqp-1.11.0.tgz
+- name: Extract amqp-{{ ampq_version }}.tgz
   unarchive:
-    src: /tmp/amqp-1.11.0.tgz
-    dest: /tmp
+    src: {{ ampq_dest_tar }}/amqp-{{ ampq_version }}.tgz
+    dest: {{ ampq_dest_tar }}
     
-- name: Build amqp-1.11.0
+- name: Build amqp-{{ ampq_version }}
   shell: 
     cmd:  phpize && ./configure --with-amqp && make && make install
-    chdir: /tmp/amqp-1.11.0
+    chdir: {{ ampq_dest_tar }}/amqp-{{ ampq_version }}
 
 - lineinfile:
     path: /etc/php/7.4/cli/php.ini
